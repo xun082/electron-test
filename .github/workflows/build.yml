@@ -1,0 +1,115 @@
+name: Build & Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Build Electron App
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 60
+    strategy:
+      matrix:
+        os: [macos-latest, windows-latest]
+      fail-fast: false
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.26.1
+
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_OUTPUT
+
+      - name: Setup pnpm cache
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Configure Git (Windows)
+        if: runner.os == 'Windows'
+        run: git config --global core.longpaths true
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Get package version
+        id: version
+        shell: bash
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Build application
+        run: pnpm run build
+
+      - name: Build Electron app
+        run: pnpm run build:electron
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CSC_IDENTITY_AUTO_DISCOVERY: false
+
+      - name: Upload macOS artifacts
+        if: matrix.os == 'macos-latest'
+        uses: actions/upload-artifact@v4
+        with:
+          name: electron-app-macos-${{ steps.version.outputs.version }}
+          path: |
+            apps/electron-app/dist/*.dmg
+            apps/electron-app/dist/*.dmg.blockmap
+            apps/electron-app/dist/*.yml
+          retention-days: 30
+          if-no-files-found: error
+          compression-level: 6
+
+      - name: Upload Windows artifacts
+        if: matrix.os == 'windows-latest'
+        uses: actions/upload-artifact@v4
+        with:
+          name: electron-app-windows-${{ steps.version.outputs.version }}
+          path: |
+            apps/electron-app/dist/*.exe
+            apps/electron-app/dist/*.exe.blockmap
+            apps/electron-app/dist/*.yml
+          retention-days: 30
+          if-no-files-found: error
+          compression-level: 6
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            apps/electron-app/dist/*.dmg
+            apps/electron-app/dist/*.dmg.blockmap
+            apps/electron-app/dist/*.exe
+            apps/electron-app/dist/*.exe.blockmap
+            apps/electron-app/dist/*.yml
+          draft: false
+          prerelease: false
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -1,0 +1,25 @@
+{
+  "name": "@monorepo/electron-window",
+  "version": "1.0.0",
+  "description": "Electron window management utilities",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "clean": "rm -rf dist",
+    "lint": "eslint . --ext ts --fix",
+    "lint:ci": "eslint . --ext ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@monorepo/electron-core": "workspace:*"
+  },
+  "peerDependencies": {
+    "electron": "^39.2.7"
+  },
+  "devDependencies": {
+    "@types/node": "^25.0.3",
+    "electron": "^39.2.7"
+  }
+}
