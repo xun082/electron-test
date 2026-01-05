@@ -65,7 +65,7 @@ jobs:
         run: pnpm run build
 
       - name: Build Electron app
-        run: pnpm run build:electron
+        run: pnpm run build:electron:mac
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CSC_IDENTITY_AUTO_DISCOVERY: false
