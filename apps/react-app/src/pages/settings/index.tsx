@@ -15,7 +15,7 @@ const SettingsPage: React.FC = () => {
       saveApiConfig({ apiUrl, password });
       setSaveStatus('success');
       setTimeout(() => setSaveStatus('idle'), 3000);
-    } catch (error) {
+    } catch {
       setSaveStatus('error');
       setTimeout(() => setSaveStatus('idle'), 3000);
     }
@@ -23,6 +23,7 @@ const SettingsPage: React.FC = () => {
 
   const handleReset = () => {
     resetApiConfig();
+
     const defaultConfig = getApiConfig();
     setApiUrl(defaultConfig.apiUrl);
     setPassword(defaultConfig.password);
@@ -41,9 +42,7 @@ const SettingsPage: React.FC = () => {
         <Card className="border-0 shadow-lg">
           <CardContent className="p-6 space-y-6">
             <div className="space-y-2">
-              <label className="text-sm font-semibold text-foreground">
-                API 地址
-              </label>
+              <label className="text-sm font-semibold text-foreground">API 地址</label>
               <input
                 type="text"
                 value={apiUrl}
@@ -51,15 +50,11 @@ const SettingsPage: React.FC = () => {
                 placeholder="http://192.168.0.12:8000/v1/chat/completions"
                 className="w-full px-4 py-3 rounded-lg border border-border bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-300 transition-all"
               />
-              <p className="text-xs text-muted-foreground">
-                RWKV API 的完整地址，包含协议和端口
-              </p>
+              <p className="text-xs text-muted-foreground">RWKV API 的完整地址，包含协议和端口</p>
             </div>
 
             <div className="space-y-2">
-              <label className="text-sm font-semibold text-foreground">
-                密码
-              </label>
+              <label className="text-sm font-semibold text-foreground">密码</label>
               <input
                 type="text"
                 value={password}
@@ -67,9 +62,7 @@ const SettingsPage: React.FC = () => {
                 placeholder="rwkv7_7.2b_webgen"
                 className="w-full px-4 py-3 rounded-lg border border-border bg-background text-foreground font-mono focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-300 transition-all"
               />
-              <p className="text-xs text-muted-foreground">
-                API 访问密码
-              </p>
+              <p className="text-xs text-muted-foreground">API 访问密码</p>
             </div>
 
             {saveStatus !== 'idle' && (
@@ -95,20 +88,11 @@ const SettingsPage: React.FC = () => {
             )}
 
             <div className="flex gap-3 pt-4">
-              <Button
-                onClick={handleSave}
-                variant="default"
-                size="lg"
-                className="flex-1"
-              >
+              <Button onClick={handleSave} variant="default" size="lg" className="flex-1">
                 <Save className="h-4 w-4 mr-2" />
                 保存设置
               </Button>
-              <Button
-                onClick={handleReset}
-                variant="outline"
-                size="lg"
-              >
+              <Button onClick={handleReset} variant="outline" size="lg">
                 <RotateCcw className="h-4 w-4 mr-2" />
                 恢复默认
               </Button>

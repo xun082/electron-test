@@ -8,8 +8,6 @@
     "build": "tsc",
     "dev": "tsc --watch",
     "clean": "rm -rf dist",
-    "lint": "eslint . --ext ts --fix",
-    "lint:ci": "eslint . --ext ts",
     "typecheck": "tsc --noEmit"
   },
   "peerDependencies": {

@@ -1,10 +1,11 @@
 import type { Configuration } from '@rspack/core';
 import { resolve } from 'path';
 
+import pkg from './package.json';
+
 // 获取 Electron 相关的依赖，这些应该被 externalize
 const getElectronExternals = () => {
   // 读取 package.json 获取所有依赖
-  const pkg = require('./package.json');
   const allDeps = {
     ...(pkg.dependencies || {}),
     ...(pkg.devDependencies || {}),

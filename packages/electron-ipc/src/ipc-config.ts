@@ -40,6 +40,7 @@ export class IpcConfig {
           { name: '图片文件', extensions: ['jpg', 'png', 'gif'] },
         ],
       });
+
       return result;
     });
 
@@ -51,6 +52,7 @@ export class IpcConfig {
           { name: '所有文件', extensions: ['*'] },
         ],
       });
+
       return result;
     });
   }
@@ -178,6 +180,7 @@ export class IpcConfig {
         return { success: true, output: stdout, error: null };
       } catch (error: any) {
         console.error('执行命令失败:', error);
+
         return {
           success: false,
           output: null,

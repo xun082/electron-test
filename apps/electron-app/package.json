@@ -7,8 +7,6 @@
   "homepage": "https://github.com/web-infra-dev/rspack",
   "scripts": {
     "format": "prettier --write .",
-    "lint": "eslint --cache . --fix",
-    "lint:ci": "eslint --cache .",
     "typecheck:node": "tsc --noEmit -p tsconfig.node.json --composite false",
     "typecheck:web": "tsc --noEmit -p tsconfig.web.json --composite false",
     "typecheck": "pnpm run typecheck:node && pnpm run typecheck:web",

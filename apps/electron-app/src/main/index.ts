@@ -111,6 +111,7 @@ function createWindow(): void {
 
   // Load the React app
   const isDev = process.env.NODE_ENV === 'development' || !app.isPackaged;
+
   if (isDev) {
     // 开发环境：加载 React 应用的开发服务器
     mainWindow.loadURL('http://localhost:3000');

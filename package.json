@@ -8,8 +8,8 @@
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
-    "lint": "turbo run lint -- --fix",
-    "lint:ci": "turbo run lint",
+    "lint": "eslint --cache . --fix",
+    "lint:ci": "eslint --cache .",
     "typecheck": "turbo run typecheck",
     "clean": "turbo run clean",
     "format": "prettier --write .",
@@ -27,6 +27,7 @@
     "@typescript-eslint/eslint-plugin": "^8.50.1",
     "@typescript-eslint/parser": "^8.50.1",
     "autoprefixer": "^10.4.23",
+    "eslint": "^9.39.2",
     "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-jsx-a11y": "^6.10.2",
     "eslint-plugin-prettier": "^5.5.4",

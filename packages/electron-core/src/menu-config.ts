@@ -48,6 +48,7 @@ export class MenuConfig {
                   { name: '图片文件', extensions: ['jpg', 'png', 'gif'] },
                 ],
               });
+
               if (!result.canceled) {
                 console.log('打开文件:', result.filePaths[0]);
               }

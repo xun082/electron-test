@@ -13,8 +13,8 @@ export default [
       'node_modules/**',
       '.next/**',
       './eslint.config.js',
-      'dist/**',
-      'out/**',
+      '**/dist/**',
+      '**/out/**',
       'tests/unit/coverage/**',
       'tests/unit/reports/**',
       'tests/coverage/**',
@@ -22,10 +22,11 @@ export default [
       '.turbo/**',
       'storybook-static/**',
       'src/services/access/api-client/**',
+      '**/*.d.ts',
     ],
   },
   {
-    files: ['apps/**/src/**/*.{js,jsx,ts,tsx}'],
+    files: ['apps/**/*.{ts,tsx}', 'packages/**/*.{ts,tsx}'],
     languageOptions: {
       ecmaVersion: 2020,
       sourceType: 'module',

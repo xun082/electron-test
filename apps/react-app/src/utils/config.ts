@@ -15,8 +15,10 @@ const CONFIG_KEY = 'rwkv_api_config';
 export function getApiConfig(): ApiConfig {
   try {
     const stored = localStorage.getItem(CONFIG_KEY);
+
     if (stored) {
       const config = JSON.parse(stored);
+
       return {
         apiUrl: config.apiUrl || DEFAULT_CONFIG.apiUrl,
         password: config.password || DEFAULT_CONFIG.password,
@@ -25,6 +27,7 @@ export function getApiConfig(): ApiConfig {
   } catch (error) {
     console.error('Failed to load API config:', error);
   }
+
   return DEFAULT_CONFIG;
 }
 

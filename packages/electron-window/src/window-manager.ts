@@ -1,6 +1,5 @@
 import { BrowserWindow, shell } from 'electron';
 import { join } from 'path';
-
 import { WindowManager, WindowOptions } from '@monorepo/electron-core';
 
 export class ElectronWindowManager implements WindowManager {

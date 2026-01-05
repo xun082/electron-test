@@ -1,5 +1,4 @@
 import { BrowserWindow } from 'electron';
-
 import { WindowOptions } from '@monorepo/electron-core';
 
 export class WindowFactory {
