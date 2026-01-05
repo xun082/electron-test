@@ -19,6 +19,8 @@
     "build:electron": "pnpm --filter my-electron-app build:win && pnpm --filter my-electron-app build:mac",
     "build:electron:win": "pnpm --filter my-electron-app build:win",
     "build:electron:mac": "pnpm --filter my-electron-app build:mac",
+    "build:electron:mac-intel": "pnpm --filter my-electron-app build:mac-intel",
+    "build:electron:mac-arm": "pnpm --filter my-electron-app build:mac-arm",
     "react:dev": "turbo run dev --filter=@monorepo/react-app",
     "react:build": "turbo run build --filter=@monorepo/react-app",
     "download-ytdlp": "./scripts/download-ytdlp.sh"

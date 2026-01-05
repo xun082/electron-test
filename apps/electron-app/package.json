@@ -23,7 +23,7 @@
     "postinstall": "electron-builder install-app-deps",
     "build:unpack": "pnpm run build && electron-builder --dir",
     "build:win": "pnpm run build && electron-builder --win",
-    "build:mac": "pnpm run build:electron && electron-builder --mac --x64 --arm64",
+    "build:mac": "pnpm run build:electron && electron-builder --mac",
     "build:mac-intel": "pnpm run build:electron && electron-builder --mac --x64",
     "build:mac-arm": "pnpm run build:electron && electron-builder --mac --arm64",
     "build:linux": "pnpm run build:electron && electron-builder --linux"
