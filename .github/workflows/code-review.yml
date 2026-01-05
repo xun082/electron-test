@@ -32,6 +32,11 @@ jobs:
         with:
           version: 10.26.1
 
+      - name: Configure Git
+        run: |
+          git config --global url."https://github.com/".insteadOf git@github.com:
+          git config --global url."https://".insteadOf git://
+
       - name: Get pnpm store directory
         id: pnpm-cache
         shell: bash

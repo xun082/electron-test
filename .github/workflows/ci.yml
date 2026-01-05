@@ -35,6 +35,15 @@ jobs:
         with:
           version: 10.26.1
 
+      - name: Configure Git
+        shell: bash
+        run: |
+          git config --global url."https://github.com/".insteadOf git@github.com:
+          git config --global url."https://".insteadOf git://
+          if [ "$RUNNER_OS" == "Windows" ]; then
+            git config --global core.longpaths true
+          fi
+
       - name: Get pnpm store directory
         id: pnpm-cache
         shell: bash
@@ -48,10 +57,6 @@ jobs:
           key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-pnpm-store-
-
-      - name: Configure Git (Windows)
-        if: runner.os == 'Windows'
-        run: git config --global core.longpaths true
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
